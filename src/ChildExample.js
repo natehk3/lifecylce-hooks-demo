@@ -14,7 +14,7 @@ class ChildExample extends Component {
      */
     constructor(props) {
         console.log('constructor --------------------------------------');
-        super(props);
+        super(props); //<--- calls parent constructor 
         console.log('props:', props);
         console.log('this.props:', this.props);
         console.log('--------------------------------------------------');
@@ -22,8 +22,9 @@ class ChildExample extends Component {
         this.state = {
             clickCount: 0,
         };
-
-        this.incrementCounter = this.incrementCounter.bind(this);
+        
+        
+        this.incrementCounter = this.incrementCounter.bind(this); //<----- sets 'this' to the instance of the component
     }
 
 
@@ -48,6 +49,7 @@ class ChildExample extends Component {
     componentDidMount() {
         console.log('componentDidMount --------------------------------');
         console.log('--------------------------------------------------');
+        //this.timer = setInterval(() => console.log(new Date))
     }
 
 
@@ -75,7 +77,13 @@ class ChildExample extends Component {
         console.log('shouldComponentUpdate ----------------------------');
         console.log('nextProps:', nextProps, 'nextState:', nextState);
         console.log('--------------------------------------------------');
-        return true;
+        // if(nextProps.background === 'red') {
+        //     return true;
+        // }
+        // if(nextProps.clickCount > 5 && nextState.clickCount  < 10){
+        //     return false;
+        // }
+        return true; //<---- default is always true
     }
 
 
@@ -103,7 +111,12 @@ class ChildExample extends Component {
         console.log('getDerivedStateFromProps -------------------------');
         console.log('nextProps:', nextProps, 'prevState:', prevState);
         console.log('--------------------------------------------------');
-        return null;
+        // if(nextProps.backgroundColor === 'red'){
+        //     return {
+        //         clickCount: 0,
+        //     };
+        // }
+        return null; //<--- no state change return null
     }
 
 
@@ -118,7 +131,13 @@ class ChildExample extends Component {
     getSnapshotBeforeUpdate() {
         console.log('getSnapshotBeforeUpdate --------------------------');
         console.log('--------------------------------------------------');
-        return null;
+        // const ourDate = new Date();
+        // const miliseconds  = ourDate.getMilliseconds();
+        // return {
+        //     miliseconds,
+        //     somethingElse: 'hey'
+        // };
+        return null; 
     }
 
 
@@ -165,6 +184,13 @@ class ChildExample extends Component {
     render() {
         console.log('render -------------------------------------------');
         console.log('--------------------------------------------------');
+        // if(this.props.backgroundColor === 'red'){
+        //     return(
+        //         <p>this is a test</p>
+        //     );
+        // } else if (this.props.backgroundColor === '#000'){
+        //     return null;
+        // }
         return (
             <div className="ChildExample" style={{ background: `${this.props.backgroundColor}` }}>
                 <p>I'm the example child component. I'm just a div.</p>
